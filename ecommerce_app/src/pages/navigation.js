@@ -29,6 +29,12 @@ export default function NavigationComp() {
                 }}>
                     Cart
                 </Link>
+
+                <Link to="/Product/:id" style={{padding: 5}} onClick={() => {
+
+                }}>
+                    Product (for testing)
+                </Link>
             </nav>
 
             <Outlet/>
