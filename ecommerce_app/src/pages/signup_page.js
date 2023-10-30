@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import {number, string} from "yup";
 
 import manageSignUp from "../helpers/manageSignUp";
+import createInput from "../helpers/createFormInputs";
 
 
 const userDatabase = JSON.parse(localStorage.getItem('localDB'))
@@ -61,40 +62,7 @@ export default function SignupPage(){
                     validateOnChange={false}
             >
 
-
                 {(formik) => {
-                    function createInput(formFields) {
-
-                        const fields = []
-                        for (let field in formFields) {
-                            fields.push(field)
-                        }
-
-
-                        //[name,email,password]
-
-                        let listId = 0
-                        const listFields = []
-
-                        fields.map((field) =>
-                            listFields.push(
-                                <div key={++listId}>
-
-                                    <label>{field}:</label>
-                                    <input value={formik.values[field]} name={field} onChange={(event) => {
-                                        formik.setFieldValue(field.toString(), event.target.value)
-                                    }}/>
-                                    <label style={{color: 'red'}}>{formik.errors[field]}</label>
-
-                                </div>
-                            )
-                        );
-                        // console.log(listFields)
-                        return (
-                            <> {listFields} </>
-                        );
-                    }
-
 
                     return (
                         <>
@@ -103,7 +71,7 @@ export default function SignupPage(){
                                 formik.handleSubmit()
                             }}>
 
-                                {createInput(formik.initialValues)}
+                                {createInput(formik.initialValues, formik)}
 
 
                                 <button type='submit'> Sign Up!</button>

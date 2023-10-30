@@ -13,11 +13,13 @@ function App() {
 
     // Database to store user details
     const databaseUsers = [
-        {userID:1, name:"sameed", email:"sameed@email.com", password:"1234", address:'ABC', phoneNumber:123},
-        {userID:2, name:"abc", email:"abc@email.com", password:"1234",address:'ABC', phoneNumber:123},
-        {userID:3, name:"def", email:"def@email.com", password:"1234",address:'ABC', phoneNumber:123},
+        {userID:1, name:"sameed", email:"sameed@email.com", password:"1234", address:'ABC', phoneNumber:123, isAdmin: true},
+        {userID:2, name:"abc", email:"abc@email.com", password:"1234",address:'ABC', phoneNumber:123, isAdmin: false},
+        {userID:3, name:"def", email:"def@email.com", password:"1234",address:'ABC', phoneNumber:123, isAdmin: false},
     ];
 
+
+    // localStorage.setItem('localDB', JSON.stringify(databaseUsers));
 
     if(localStorage.getItem('localDB') === '[]'){
         localStorage.setItem('localDB', JSON.stringify(databaseUsers));

@@ -11,10 +11,12 @@ export default function manageSignUp (submittedData,database){
         flag = false
     }
 
+    let newId = database[database.length-1].userID
     // If everything is valid, user gets an alert and the login page loads
     if(flag === true){
 
         const newUser = {
+            userID: ++newId,
             name: submittedData.name,
             email: submittedData.email,
             password: submittedData.password,
