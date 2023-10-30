@@ -11,8 +11,22 @@ import ProductPage from "./pages/product_page";
 function App() {
 
 
+    // Database to store user details
+    const databaseUsers = [
+        {userID:1, name:"sameed", email:"sameed@email.com", password:"1234", address:'ABC', phoneNumber:123},
+        {userID:2, name:"abc", email:"abc@email.com", password:"1234",address:'ABC', phoneNumber:123},
+        {userID:3, name:"def", email:"def@email.com", password:"1234",address:'ABC', phoneNumber:123},
+    ];
 
-  return (
+
+    if(localStorage.getItem('localDB') === '[]'){
+        localStorage.setItem('localDB', JSON.stringify(databaseUsers));
+    }
+
+    localStorage.setItem('loginToken',JSON.stringify(false))
+
+
+    return (
       <Routes>
 
           <Route element={<NavigationComp />}>
