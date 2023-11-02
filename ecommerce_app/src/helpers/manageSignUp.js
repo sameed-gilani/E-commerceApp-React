@@ -1,34 +1,38 @@
+export default function manageSignUp(submittedData) {
+    const cartDatabase = JSON.parse(localStorage.getItem('cartDB'))
+    const userDatabase = JSON.parse(localStorage.getItem('userDB'))
 
-
-
-export default function manageSignUp (submittedData,database){
 
     let flag = true
 
     // Searches the database to see if the same email already exists
-    let matchedObj = database.filter(obj => obj.email === submittedData.email);
-    if(matchedObj.length === 1){
+    let matchedObj = userDatabase.filter(obj => obj.email === submittedData.email);
+    if (matchedObj.length === 1) {
         flag = false
     }
 
-    let newId = database[database.length-1].userID
-    // If everything is valid, user gets an alert and the login page loads
-    if(flag === true){
+    let newId = userDatabase[userDatabase.length - 1].userID
+    // If everything is valid, user gets an alert and the Redux page loads
+    if (flag === true) {
 
         const newUser = {
             userID: ++newId,
             name: submittedData.name,
             email: submittedData.email,
             password: submittedData.password,
-            address:submittedData.address,
-            phoneNumber: submittedData.phoneNumber
+            address: submittedData.address,
+            phoneNumber: submittedData.phoneNumber,
+            role: 'User',
         }
 
-        database.push(newUser);
-        localStorage.setItem('localDB',JSON.stringify(database))
+        userDatabase.push(newUser);
+        localStorage.setItem('userDB', JSON.stringify(userDatabase))
 
-    }
-    else{
+        cartDatabase.push({userID: newUser.userID, cartContents: []})
+        localStorage.setItem('cartDB', JSON.stringify(cartDatabase))
+
+
+    } else {
         return flag;
     }
 }

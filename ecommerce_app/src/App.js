@@ -5,45 +5,106 @@ import NavigationComp from "./pages/navigation";
 import HomePage from "./pages/home_page";
 import SignupPage from "./pages/signup_page";
 import LoginPage from "./pages/login_page";
-import CartPage from "./pages/cart";
+import ProtectedRouteToCart from "./pages/protected_route_login";
 import ProductPage from "./pages/product_page";
+import AdminProductPage from "./pages/adminProductInput";
 
 function App() {
 
 
     // Database to store user details
     const databaseUsers = [
-        {userID:1, name:"sameed", email:"sameed@email.com", password:"1234", address:'ABC', phoneNumber:123, isAdmin: true},
-        {userID:2, name:"abc", email:"abc@email.com", password:"1234",address:'ABC', phoneNumber:123, isAdmin: false},
-        {userID:3, name:"def", email:"def@email.com", password:"1234",address:'ABC', phoneNumber:123, isAdmin: false},
+        {
+            userID: 1,
+            name: "sameed",
+            email: "sameed@email.com",
+            password: "1234",
+            address: 'ABC',
+            phoneNumber: 123,
+            role: 'Admin'
+        },
+        {
+            userID: 2,
+            name: "abc",
+            email: "abc@email.com",
+            password: "1234",
+            address: 'ABC',
+            phoneNumber: 123,
+            role: 'User'
+        },
+        {
+            userID: 3,
+            name: "def",
+            email: "def@email.com",
+            password: "1234",
+            address: 'ABC',
+            phoneNumber: 123,
+            role : 'User'
+        },
     ];
 
+    const databaseProducts = [
+        {productID: 1, name: 'Chair', description: '', price: 100, imgURL: 'https://picsum.photos/200/300', stock: 10},
+        {productID: 2, name: 'Table', description: '', price: 200, imgURL: 'https://picsum.photos/200/300', stock: 15},
+        {productID: 3, name: 'Laptop', description: '', price: 300, imgURL: 'https://picsum.photos/200/300', stock: 20},
+    ];
 
-    // localStorage.setItem('localDB', JSON.stringify(databaseUsers));
+    const databaseCart = [
+        {userID: 1, cartContents: []},
+        {userID: 2, cartContents: []},
+        {userID: 3, cartContents: []},
 
-    if(localStorage.getItem('localDB') === '[]'){
-        localStorage.setItem('localDB', JSON.stringify(databaseUsers));
+    ]
+
+
+    //
+    // localStorage.setItem('userDB', JSON.stringify(databaseUsers));
+    // localStorage.setItem('productDB', JSON.stringify(databaseProducts));
+    // localStorage.setItem('cartDB', JSON.stringify(databaseCart))
+
+
+    if (localStorage.getItem('userDB') === '[]') {
+        localStorage.setItem('userDB', JSON.stringify(databaseUsers));
     }
 
-    localStorage.setItem('loginToken',JSON.stringify(false))
+    if (localStorage.getItem('productDB') === '[]') {
+        localStorage.setItem('productDB', JSON.stringify(databaseProducts));
+    }
 
+    if (localStorage.getItem('cartDB') === '[]') {
+        localStorage.setItem('cartDB', JSON.stringify(databaseCart));
+    }
 
     return (
-      <Routes>
+        <>
+            <button onClick={()=>{
+                localStorage.setItem('userDB', JSON.stringify(databaseUsers));
+                localStorage.setItem('productDB', JSON.stringify(databaseProducts));
+                localStorage.setItem('cartDB', JSON.stringify(databaseCart))
 
-          <Route element={<NavigationComp />}>
-              <Route path='/' element={<HomePage />} />
-              <Route path={'/Product/:id'} element={<ProductPage />} />
+            }}>Reset data</button>
+            <Routes>
 
-              <Route path='/SignUp' element={<SignupPage />} />
-              <Route path='/Login' element={<LoginPage />} />
-              <Route path='/Cart' element={<CartPage />} />
+                <Route element={<NavigationComp/>}>
+                    <Route path='/Home' element={<HomePage/>}/>
+                    <Route path={'/Product/:id'} element={<ProductPage/>}/>
 
-          </Route>
+                    <Route path='/SignUp' element={<SignupPage/>}/>
+                    <Route path='/Login' element={<LoginPage/>}/>
+                    <Route path='/Cart' element={<ProtectedRouteToCart/>}/>
+                    <Route path='/Admin' element={<AdminProductPage/>}/>
 
 
-      </Routes>
-  );
+                </Route>
+
+
+            </Routes>
+
+
+
+        </>
+
+    );
 }
 
 export default App;

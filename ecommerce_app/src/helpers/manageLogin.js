@@ -3,11 +3,9 @@ export default function manageLogin(submittedData, database) {
     let flag = false;
 
 
-    // Checks the validity of the email and password with each object in the database
     let matchedObj = database.filter(obj =>
         obj.email === submittedData.email &&
-        obj.password === submittedData.password
-        && obj.isAdmin === submittedData.isAdmin);
+        obj.password === submittedData.password);
 
     if (matchedObj.length === 1) {
         flag = true

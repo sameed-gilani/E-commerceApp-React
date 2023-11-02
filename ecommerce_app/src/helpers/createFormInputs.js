@@ -1,19 +1,11 @@
+export default function createInput(formFields, formik) {
 
-export default function createInput(formFields,formik) {
-
-    let isAdminCheck = false
 
     const fields = []
     for (let field in formFields) {
-        if(field !== 'isAdmin'){
             fields.push(field)
-        }else{
-            isAdminCheck = true
-        }
     }
 
-
-    //[name,email,password]
 
     let listId = 0
     const listFields = []
@@ -32,27 +24,12 @@ export default function createInput(formFields,formik) {
         )
     );
 
-
-    if(isAdminCheck === true){
-        return (
-            <>
-                {listFields}
-
-                <label>Admin</label>
-                <input type={"checkbox"} checked={formik.values.isAdmin} value={formik.values.isAdmin} name={'isAdmin'} onChange={(event)=>{
-                    formik.setFieldValue('isAdmin', event.target.checked)
-                }} />
-
-            </>
-        );
-    }else{
         return (
             <>
                 {listFields}
 
             </>
         );
-    }
 
 
 
